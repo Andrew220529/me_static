@@ -1,0 +1,279 @@
+// /* =========================
+// variable
+// ========================= */
+
+// breakpoint
+$breakpoints: (
+	pc: 1024px,
+	tb: 768px,
+	sp: 680px,
+	) !default;
+
+// text color
+$colors: (
+	base: #333,
+    black: black,
+	white: #fff,
+    red: #d60a3b,
+    blue: #0368b7,
+    navy: #051142,
+    gray: #848484,
+    gray02: #EFF3F4,
+);
+
+
+@function color($key) {
+	@return map-get($colors, $key);
+}
+
+/* ========================
+base
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    line-height: 1.75;
+    height: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    color: color(base);
+    background: color(site-color);
+    font-size: 1rem;
+    font-family: 'Noto Sans JP', sans-serif;
+    min-width: 350px;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+img,
+source,
+video,
+object {
+    max-width: 100%;
+    height: auto;
+    border: none;
+    display: block;
+}
+
+a {
+    color: color(base);
+    text-decoration: none;
+    transition: 0.4s;
+
+    &:hover {
+        text-decoration: none;
+    }
+    img {
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+}
+
+
+ul,
+ol,
+li {
+    list-style: none;
+}
+
+// /* =========================
+// mixin
+// ========================= */
+
+$breakpoint-mq: (
+	'pc': 'screen and (max-width: #{map-get($breakpoints, 'pc')})',
+	'tb': 'screen and (max-width: #{map-get($breakpoints, 'tb')})',
+	'sp': 'screen and (max-width: #{map-get($breakpoints, 'sp')})',
+	) !default;
+
+@mixin mq($breakpoint) {
+	@media #{map-get($breakpoint-mq, $breakpoint)} {
+		@content;
+	}
+}
+
+@mixin rem($font-size, $line-height: $font-size) {
+	font-size: $font-size / 16px * 1rem;
+
+	@if($line-height  !=0) {
+		line-height: ($line-height / $font-size
+		);
+}
+}
+
+$btn-color: orange;
+$btn-txt-color: white;
+
+@mixin c-button-style($bg: $btn-color, $clr: $btn-txt-color) {
+    display: block;
+    max-width: 450px;
+    width: 98%;
+	background-color: $bg;
+    color: $clr;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    padding: .25em;
+    margin: 0 auto;
+    border-radius: .5em;
+	transition: all .3s;
+    border: 2px solid transparent;
+    cursor: pointer;
+    
+	&:hover {
+        background-color: $clr;
+		color: $bg;
+        border: 2px solid $bg;
+	}
+}
+
+/* ========================
+layout
+========================= */
+
+// body {
+//     max-width: 450px;
+//     margin: 0 auto;
+// }
+
+.l_header {
+
+}
+
+.l_nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    transform: translateX(250px);
+    width: 250px;
+    transition: .3s;
+}
+
+.l_main {
+
+}
+
+/* ========================
+component
+========================= */
+
+.c_profile {
+    width: 100%;
+    max-height: 420px;
+    height: 45vw;
+    min-height: 280px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: white;
+    & > h1 {
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 8%;
+    }
+    .profession {
+        font-size: max(2rem, 3vw);
+        line-height: 1;
+    }
+    .name {
+        font-size: max(2.75rem, 4vw);
+        line-height: 1.5;
+        padding-bottom: 1.25%;
+    }
+}
+
+.c_cat {
+    padding: 1rem 8%;
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+        background: transparent;
+    }
+    &__list {
+        display: flex;
+        gap: 1rem;
+        li a {
+            background-color: color(black);
+            color: color(white);
+            display: block;
+            padding: .3rem 1rem;
+            border-radius: 3rem;
+            white-space: nowrap;
+        }
+    }
+}
+
+.c_cont {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding-bottom: 6rem;
+    h2 {
+        padding: 0 5%;
+        letter-spacing: .01em;
+        margin-bottom: 1em;
+    }
+
+    p {
+        max-width: 100%;
+        padding: 0 8%;
+        letter-spacing: .05em;
+        margin-bottom: 1em;
+    }
+}
+
+.c_cardUnit {
+    max-width: 908px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.c_card {
+    max-width: 215px;
+    flex: 1 0 calc(50% - .5rem);
+    img {
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+.c_btn__fixed {
+    position: fixed;
+    bottom: 10px;
+    right: 0;
+    left: 0;
+}
+
+.c_btn {
+    @include c-button-style();
+}
+
+/* ========================
+project
+========================= */
+
+
+/* ========================
+ulitity
+========================= */
+
+.u_centerTxt {
+    text-align: center;
+}
+
+.u_clr__gray {
+    color: color(gray);
+}
